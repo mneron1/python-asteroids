@@ -10,10 +10,14 @@ def starting():
 def main():
     # Initialize the game
     pygame.init()
-
-    #Initialize the display
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
+    # Setting the FPS
+    clock = pygame.time.Clock()
+    FPS = 60
+    dt = 0
+
+    # Setting up the game loop
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -23,6 +27,11 @@ def main():
 
         # Update the display
         pygame.display.flip()
+
+        # Wait for the next frame
+        clock.tick(FPS)
+        dt = clock.tick(FPS) / 1000
+        
 
 if __name__ == "__main__":
     main()
