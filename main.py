@@ -28,10 +28,8 @@ def main():
         # Update the display
         pygame.display.flip()
 
-        # Wait for the next frame
-        clock.tick(FPS)
+        # Limit the frame rate to 60 FPS
         dt = clock.tick(FPS) / 1000
-        
 
 if __name__ == "__main__":
     main()
