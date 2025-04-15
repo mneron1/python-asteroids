@@ -3,6 +3,7 @@
 # throughout this file
 import pygame
 from constants import *
+from groups import updatables, drawables
 from player import Player
 
 def starting():
@@ -18,11 +19,6 @@ def main():
     FPS = 60
     dt = 0
 
-    # Adding groups
-    global updatables, drawables
-    updatables = pygame.sprite.Group()
-    drawables = pygame.sprite.Group()
-
     # Create the player
     Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
@@ -32,10 +28,10 @@ def main():
             if event.type == pygame.QUIT:
                 return
             
-        screen.fill("black")
-
         # Update all updatable objects
         updatables.update(dt)
+        
+        screen.fill("black")
         
         # Draw all drawable objects
         for drawable in drawables:
