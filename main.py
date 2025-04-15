@@ -18,8 +18,13 @@ def main():
     FPS = 60
     dt = 0
 
+    # Adding groups
+    global updatables, drawables
+    updatables = pygame.sprite.Group()
+    drawables = pygame.sprite.Group()
+
     # Create the player
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # Setting up the game loop
     while True:
@@ -29,9 +34,12 @@ def main():
             
         screen.fill("black")
 
-        # Update and draw the player
-        player.update(dt)
-        player.draw(screen)
+        # Update all updatable objects
+        updatables.update(dt)
+        
+        # Draw all drawable objects
+        for drawable in drawables:
+            drawable.draw(screen)
 
         # Update the display
         pygame.display.flip()
