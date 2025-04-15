@@ -2,9 +2,12 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from constants import *
-from groups import updatables, drawables
+from groups import updatables, drawables, asteroids, shots
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def starting():
     print("Starting Asteroids!")
@@ -20,7 +23,10 @@ def main():
     dt = 0
 
     # Create the player
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
+    # Create the asteroid field
+    AsteroidField()
 
     # Setting up the game loop
     while True:
@@ -30,6 +36,19 @@ def main():
             
         # Update all updatable objects
         updatables.update(dt)
+        
+        # Check for collisions between player and asteroids
+        for asteroid in asteroids:
+            if player.collides_with(asteroid):
+                print("Game over!")
+                sys.exit()
+                
+            # Check for collisions between asteroids and shots
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    asteroid.split()
+                    shot.kill()
+                    break  # Break since this asteroid is now destroyed
         
         screen.fill("black")
         
